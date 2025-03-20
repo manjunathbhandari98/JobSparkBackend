@@ -11,11 +11,7 @@ import jakarta.validation.constraints.Pattern;
  */
 
 
-public class UserDTO {
-    private Long id;
-    @NotBlank(message = "{user.name.absent}")
-    private String name;
-
+public class LoginDTO {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "{user.email.invalid}")
     @NotBlank(message = "{user.email.absent}")
     private String email;
@@ -31,17 +27,12 @@ public class UserDTO {
      * @return A new User entity populated with the DTO's data.
      */
 
-    public User toEntity() {
-        return new User(this.id, this.name, this.email, this.password, this.accountType);
+    // No args Constructor
+    public LoginDTO() {
     }
 
-    // Default constructor
-    public UserDTO() {
-    }
-    public UserDTO(Long id, String name, String email, String password, AccountType accountType) {
-        this.id = id;
-
-        this.name = name;
+    // All args Constructor
+    public LoginDTO(String email, String password, AccountType accountType) {
         this.email = email;
         this.password = password;
         this.accountType = accountType;
@@ -49,21 +40,6 @@ public class UserDTO {
 
     // Getter and setter methods for accessing and modifying private fields
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
