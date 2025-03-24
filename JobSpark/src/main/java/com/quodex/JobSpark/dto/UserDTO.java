@@ -25,6 +25,8 @@ public class UserDTO {
     private String password;
     private AccountType accountType;
 
+    private Long profileId;
+
     /**
      * Converts this DTO to a User entity.
      *
@@ -32,19 +34,20 @@ public class UserDTO {
      */
 
     public User toEntity() {
-        return new User(this.id, this.name, this.email, this.password, this.accountType);
+        return new User(this.id, this.name, this.email, this.password, this.accountType, this.profileId);
     }
 
     // Default constructor
     public UserDTO() {
     }
-    public UserDTO(Long id, String name, String email, String password, AccountType accountType) {
+    public UserDTO(Long id, String name, String email, String password, AccountType accountType, Long profileId) {
         this.id = id;
 
         this.name = name;
         this.email = email;
         this.password = password;
         this.accountType = accountType;
+        this.profileId = profileId;
     }
 
     // Getter and setter methods for accessing and modifying private fields
@@ -88,4 +91,11 @@ public class UserDTO {
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
+
+    public Long getProfileId()
+    {
+        return profileId;
+    }
+
+    public void setProfileId(Long profileId) {this.profileId = profileId;}
 }
