@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/profile")
@@ -21,6 +23,11 @@ public class ProfileController {
     @GetMapping("/{id}")
     public ResponseEntity<ProfileDTO> getProfile(@PathVariable Long id) throws JobSparkException {
         return new ResponseEntity<>(profileService.getProfile(id), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProfileDTO>> getAllProfiles() throws JobSparkException{
+        return new ResponseEntity<>(profileService.getAllProfile(), HttpStatus.OK);
     }
 
     @PutMapping("/update")

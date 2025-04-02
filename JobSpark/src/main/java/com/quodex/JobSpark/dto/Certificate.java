@@ -17,11 +17,11 @@ public class Certificate {
 
     public Certificate(){}
 
-    public String getTitle() {
+    public String getName() {
         return name;
     }
 
-    public void setTitle(String title) {
+    public void setName(String name) {
         this.name = name;
     }
 

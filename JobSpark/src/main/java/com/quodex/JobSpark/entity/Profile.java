@@ -6,8 +6,8 @@ import com.quodex.JobSpark.dto.ProfileDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Base64;
 import java.util.List;
-
 
 @Document(collection = "profiles")
 public class Profile {
@@ -19,23 +19,27 @@ public class Profile {
     private String company;
     private String location;
     private String about;
+    private byte[] picture;
     private List<String> skills;
     private List<Experience> experiences;
     private List<Certificate> certificates;
+    private List<Long> savedJobs;
 
     public Profile() {
     }
 
-    public Profile(Long id, String email, String jobTitle, String company, String location, String about, List<String> skills, List<Experience> experiences, List<Certificate> certificates) {
+    public Profile(Long id, String email, String jobTitle, String company, String location, String about, byte[] picture, List<String> skills, List<Experience> experiences, List<Certificate> certificates, List<Long> savedJobs) {
         this.id = id;
         this.email = email;
         this.jobTitle = jobTitle;
         this.company = company;
         this.location = location;
         this.about = about;
+        this.picture = picture;
         this.skills = skills;
         this.experiences = experiences;
         this.certificates = certificates;
+        this.savedJobs = savedJobs;
     }
 
     public Long getId() {
@@ -86,6 +90,14 @@ public class Profile {
         this.about = about;
     }
 
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
     public List<String> getSkills() {
         return skills;
     }
@@ -110,7 +122,23 @@ public class Profile {
         this.certificates = certificates;
     }
 
-    public ProfileDTO toDTO(){
-        return new ProfileDTO(this.id, this.email, this.jobTitle, this.company, this.location, this.about, this.skills, this.experiences, this.certificates);
+    public List<Long> getSavedJobs() { return savedJobs;}
+
+    public void setSavedJobs(List<Long> savedJobs) { this.savedJobs = savedJobs;}
+
+    public ProfileDTO toDTO() {
+        return new ProfileDTO(
+                this.id,
+                this.email,
+                this.jobTitle,
+                this.company,
+                this.location,
+                this.about,
+                this.picture != null ? Base64.getEncoder().encodeToString(this.picture) : null,
+                this.skills,
+                this.experiences,
+                this.certificates,
+                this.savedJobs
+        );
     }
 }
