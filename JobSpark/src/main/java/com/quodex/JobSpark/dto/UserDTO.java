@@ -1,5 +1,6 @@
 package com.quodex.JobSpark.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quodex.JobSpark.entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -6,6 +6,8 @@ import com.quodex.JobSpark.dto.UserDTO;
 import com.quodex.JobSpark.exception.JobSparkException;
 import jakarta.mail.MessagingException;
 
+import java.util.List;
+
 /**
  * Service interface for managing user-related operations.
  * Defines methods to be implemented by the service class.
@@ -20,4 +22,6 @@ public interface UserService {
     void verifyOTP(String email, String otp) throws JobSparkException;
 
     ResponseDTO resetPassword(LoginDTO loginDTO) throws JobSparkException;
+
+    List<UserDTO> getAllUsers();
 }

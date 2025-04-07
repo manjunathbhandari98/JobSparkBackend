@@ -55,6 +55,15 @@ public class JobController {
         return new ResponseEntity<>(jobService.getJobPosterById(id), HttpStatus.OK);
     }
 
+    @PutMapping("/{jobId}/applicants/{applicantId}")
+    public ResponseEntity<JobDTO> updateApplicantStatus(
+            @PathVariable Long jobId,
+            @PathVariable Long applicantId,
+            @RequestBody ApplicantDTO updatedApplicant
+    ) throws JobSparkException {
+        JobDTO updatedJob = jobService.updateApplicantStatus(jobId, applicantId, updatedApplicant);
+        return new ResponseEntity<>(updatedJob, HttpStatus.OK);
+    }
 
 
 }

@@ -1,11 +1,13 @@
 package com.quodex.JobSpark.service;
 
 import com.quodex.JobSpark.dto.LoginDTO;
+import com.quodex.JobSpark.dto.NotificationsDTO;
 import com.quodex.JobSpark.dto.ResponseDTO;
 import com.quodex.JobSpark.dto.UserDTO;
 import com.quodex.JobSpark.entity.OTP;
 import com.quodex.JobSpark.entity.User;
 import com.quodex.JobSpark.exception.JobSparkException;
+import com.quodex.JobSpark.repository.NotificationRepository;
 import com.quodex.JobSpark.repository.OtpRepository;
 import com.quodex.JobSpark.repository.UserRepository;
 import com.quodex.JobSpark.utility.Data;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -41,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Override
     public UserDTO registerUser(UserDTO userDTO) throws JobSparkException {
@@ -79,8 +85,10 @@ public class UserServiceImpl implements UserService {
             throw new JobSparkException("INVALID_CREDENTIALS");
         }
 
+
         // Convert User entity to DTO and return
         return user.toDto();
+
     }
 
     @Override
@@ -140,9 +148,18 @@ public class UserServiceImpl implements UserService {
 
         // Save the updated user entity with the new password
         userRepository.save(user);
-
+        NotificationsDTO notificationsDTO = new NotificationsDTO();
+        notificationsDTO.setUserId(user.getId());
+        notificationsDTO.setMessage("Password Reset Successfully");
+        notificationsDTO.setAction("Password Reset");
+        notificationService.sendNotification(notificationsDTO);
         // Return a response indicating success
         return new ResponseDTO("Password Changed Successfully");
+    }
+
+    @Override
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream().map(User::toDto).toList();
     }
 
 

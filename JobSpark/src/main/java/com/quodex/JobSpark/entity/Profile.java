@@ -24,11 +24,15 @@ public class Profile {
     private List<Experience> experiences;
     private List<Certificate> certificates;
     private List<Long> savedJobs;
+    private Long totalExperience;
 
     public Profile() {
     }
 
-    public Profile(Long id, String email, String jobTitle, String company, String location, String about, byte[] picture, List<String> skills, List<Experience> experiences, List<Certificate> certificates, List<Long> savedJobs) {
+    public Profile(Long id, String email, String jobTitle, String company,
+                   String location, String about, byte[] picture, List<String> skills,
+                   List<Experience> experiences, List<Certificate> certificates,
+                   List<Long> savedJobs, Long totalExperience) {
         this.id = id;
         this.email = email;
         this.jobTitle = jobTitle;
@@ -40,6 +44,7 @@ public class Profile {
         this.experiences = experiences;
         this.certificates = certificates;
         this.savedJobs = savedJobs;
+        this.totalExperience = totalExperience;
     }
 
     public Long getId() {
@@ -126,6 +131,14 @@ public class Profile {
 
     public void setSavedJobs(List<Long> savedJobs) { this.savedJobs = savedJobs;}
 
+    public Long getTotalExperience() {
+        return totalExperience;
+    }
+
+    public void setTotalExperience(Long totalExperience) {
+        this.totalExperience = totalExperience;
+    }
+
     public ProfileDTO toDTO() {
         return new ProfileDTO(
                 this.id,
@@ -138,7 +151,8 @@ public class Profile {
                 this.skills,
                 this.experiences,
                 this.certificates,
-                this.savedJobs
+                this.savedJobs,
+                this.totalExperience
         );
     }
 }

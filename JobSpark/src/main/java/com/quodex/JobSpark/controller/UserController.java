@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @CrossOrigin
 @Validated
@@ -61,6 +64,11 @@ public class UserController {
     @PostMapping("/resetPassword")
     public ResponseEntity<ResponseDTO> resetPassword(@RequestBody @Valid LoginDTO loginDTO) throws JobSparkException{
         return new ResponseEntity<>(userService.resetPassword(loginDTO), HttpStatus.OK);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<UserDTO>> getAllUsers() throws JobSparkException{
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
 }

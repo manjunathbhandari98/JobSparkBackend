@@ -23,4 +23,6 @@ public interface JobService {
     ApplicantDTO applyJob(Long id, ApplicantDTO applicantDTO) throws JobSparkException;
 
     List<JobDTO> getJobPosterById(Long id) throws JobSparkException;
+
+    JobDTO updateApplicantStatus(Long jobId, Long applicantId, ApplicantDTO updatedApplicant) throws JobSparkException;
 }
