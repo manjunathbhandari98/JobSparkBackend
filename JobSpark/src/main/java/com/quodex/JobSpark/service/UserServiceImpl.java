@@ -75,6 +75,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDTO getUserByEmail(String email) throws JobSparkException {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new JobSparkException("USER_NOT_FOUND")).toDto();
+    }
+
+    @Override
     public UserDTO loginUser(LoginDTO loginDTO) throws JobSparkException {
         // Find user by email or throw an exception if not found
         User user = userRepository.findByEmail(loginDTO.getEmail())

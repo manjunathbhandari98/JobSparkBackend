@@ -15,6 +15,8 @@ import java.util.List;
 public interface UserService {
     public UserDTO registerUser(UserDTO userDTO) throws JobSparkException;
 
+    public UserDTO getUserByEmail(String email) throws JobSparkException;
+
     UserDTO loginUser(LoginDTO loginDTO) throws JobSparkException;
 
     void sendOTP(String email) throws JobSparkException, MessagingException;
