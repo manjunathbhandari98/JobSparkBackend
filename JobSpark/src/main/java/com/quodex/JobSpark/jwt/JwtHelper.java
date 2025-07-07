@@ -2,6 +2,7 @@ package com.quodex.JobSpark.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -12,15 +13,18 @@ import java.util.function.Function;
 @Component
 public class JwtHelper {
 
+    @Value("${jwt.secret.key}")
+    private String SECRET_KEY;
+
+    @Value("${jwt.expiry}")
+    private long EXPIRATION_TIME;
+
     private Key getSigningKey() {
-        // Must be 256-bit (32 chars)
-        String SECRET_KEY = "your-256-bit-secret-your-256-bit-secret";
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
     public String generateToken(UserDetails userDetails) {
-        // 10 hours
-        long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
